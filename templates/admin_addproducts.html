@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #333;
+            color: white;
+            padding: 15px 20px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+        .form-container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #333;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #555;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{{url_for('static',filename='images/logo.png')}}" alt="Logo">
+            <span>Admin Panel [ Add Products ]</span>
+        </div>
+    </header>
+    
+    <div class="content">
+        <h1>Add a New Book</h1>
+        <p>{{message}}</p>
+        <div class="form-container">
+            <form action="/add_products" method="POST" enctype="multipart/form-data">
+                <input type="text" name="product_name" placeholder="Book Name" required>
+                <input type="file" name="product_image" accept="image/*" required>
+
+                <select name="product_genre" required>
+                    <option value="" disabled selected>Select Book Genre</option>
+                    <option value="Fiction">Fiction</option>
+                    <option value="Non-Fiction">Non-Fiction</option>
+                    <option value="Mystery">Mystery</option>
+                    <option value="Science Fiction">Science Fiction</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Biography">Biography</option>
+                    <option value="History">History</option>
+                    <option value="Self-Help">Self-Help</option>
+                </select>
+
+                <input type="number" name="actual_price" placeholder="Actual Price" required>
+                <input type="number" name="discounted_price" placeholder="Discounted Price" required>
+                <input type="number" name="quantity" placeholder="Stock" required>
+                <button type="submit">Add Book</button>
+            </form>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Contact:sanjanatakkuri1@gmail.com | &copy; 2025 Admin Panel</p>
+    </footer>
+</body>
+</html>

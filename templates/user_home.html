@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User home</title>
+    <script>
+        window.onload = function(){
+            var message = "{{msg}}"
+            console.log(message);
+            if (message == "YES"){
+                alert("Product Added to cart")
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #333;
+            color: white;
+            padding: 15px 20px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+        .menu-btn {
+            font-size: 20px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background: #444;
+            transition: 0.3s;
+            padding-top: 60px;
+        }
+        .sidebar a {
+            display: block;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background: #575757;
+        }
+        .book-container {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .book-card {
+            background: white;
+            padding: 15px;
+            margin: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            text-align: center;
+        }
+        .book-card img {
+            width: 100%;
+            border-radius: 5px;
+            height : 300px;
+        }
+        .book-card h3 {
+            margin: 10px 0;
+            color: #333;
+        }
+        .book-card p {
+            color: #666;
+            margin: 5px 0;
+        }
+        .book-card .price {
+            font-weight: bold;
+            color: #d9534f;
+        }
+        .book-card .discounted {
+            color: green;
+            font-weight: bold;
+        }
+        .book-card button {
+            width: 100%;
+            padding: 10px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .book-card button:hover {
+            background: #575757;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{{url_for('static',filename='images/logo.png')}}" alt="Logo">
+            <span>Find Your Book</span>
+        </div>
+        <button class="menu-btn" onclick="toggleSidebar()">☰ Menu</button>
+    </header>
+    
+    <div id="sidebar" class="sidebar">
+        <a href="#" onclick="toggleSidebar()">Close </a>
+        <a href="/shopping_cart/{{user_id}}">Shopping Cart</a>
+        <a href="/user_login1">Log out</a>
+    </div>
+    
+    <div class="book-container">
+        {% for books in products %}
+        <div class="book-card">
+            <img src="{{books[2]}}" alt="Book Image">
+            <h3>{{books[1]}}</h3>
+            <p>Genre: {{books[3]}}</p>
+            <p class="price">Actual Price: {{books[4]}}/-</p>
+            <p class="discounted">Discounted Price: {{books[5]}}/-</p>
+            <p>Stock: {{books[6]}}</p>
+            <a href="/add_to_cart/{{books[0]}}/{{user_id}}"><button>Add to Cart</button></a>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <footer>
+        <p>Contact: sanjanatakkuri1@gmail.com | &copy; 2025 My Web App</p>
+    </footer>
+    
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            if (sidebar.style.left === "0px") {
+                sidebar.style.left = "-250px";
+            } else {
+                sidebar.style.left = "0px";
+            }
+        }
+    </script>
+</body>
+</html>
